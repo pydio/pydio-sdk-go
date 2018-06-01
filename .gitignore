@@ -1,0 +1,5 @@
+.project
+config.json
+pydio-sdk-go
+.history
+vendor
