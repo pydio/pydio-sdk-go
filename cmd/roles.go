@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/go-openapi/runtime"
+	"github.com/go-openapi/strfmt"
+
 	"github.com/pydio/pydio-sdk-go/client/provisioning"
 
 	httptransport "github.com/go-openapi/runtime/client"
@@ -28,24 +31,26 @@ var ListRolesCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		fmt.Printf("Default config: %s\n", config.DefaultConfig.BasePath)
-		transportConfig := clientapi.TransportConfig{
-			Host:     config.DefaultConfig.Host,
-			BasePath: config.DefaultConfig.BasePath,
-			Schemes:  config.DefaultConfig.Schemes,
-		}
-		pydioSdkGo := clientapi.NewHTTPClientWithConfig(nil, &transportConfig)
+		rt := httptransport.New(
+			config.DefaultConfig.Host,
+			config.DefaultConfig.BasePath,
+			config.DefaultConfig.Schemes)
+		rt.Consumers["text/xml"] = runtime.XMLConsumer()
+		rt.DefaultAuthentication = httptransport.BasicAuth(config.DefaultConfig.User, config.DefaultConfig.Password)
+		pydioSdkGo := clientapi.New(rt, strfmt.Default)
 
-		basicAuth := httptransport.BasicAuth(config.DefaultConfig.User, config.DefaultConfig.Password)
+		fmt.Printf("User credential aa : %s / %s\n", config.DefaultConfig.User, config.DefaultConfig.Password)
+        params := provisioning.NewGetRolesParams()
 
-		fmt.Printf("User credential : %s / %s\n", config.DefaultConfig.User, config.DefaultConfig.Password)
-        params := provisioning.NewGetRolesParams()        
-		rolesOK, err := pydioSdkGo.Provisioning.GetRoles(params, basicAuth)
+		//rolesOK, err := clientapi.Default.Provisioning.GetRoles(params, basicAuth)
+		rolesOK, err := pydioSdkGo.Provisioning.GetRoles(params, httptransport.BasicAuth(config.DefaultConfig.User, config.DefaultConfig.Password))
+		fmt.Println(rolesOK, err)
 
 		if err != nil {
 			log.Fatal(err)
 		}
 
-		fmt.Printf("Found %d results\n", len(rolesOK.Payload.Data.Children))
+		//fmt.Printf("Found %d results\n", len(rolesOK.Payload.Data))
 
 	},
 }
