@@ -12,7 +12,7 @@ import (
 )
 
 // TaskSchedule task schedule
-// swagger:model taskSchedule
+// swagger:model Task_schedule
 type TaskSchedule struct {
 
 	// schedule type

@@ -6,10 +6,13 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
+	"encoding/json"
+
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
+	"github.com/go-openapi/validate"
 )
 
 // Node Node
@@ -62,6 +65,10 @@ type Node struct {
 
 	// stat
 	Stat interface{} `json:"stat,omitempty"`
+
+	// type
+	// Enum: [collection leaf]
+	Type string `json:"type,omitempty"`
 }
 
 // Validate validates this node
@@ -69,6 +76,10 @@ func (m *Node) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateChildren(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -91,6 +102,49 @@ func (m *Node) validateChildren(formats strfmt.Registry) error {
 			}
 			return err
 		}
+	}
+
+	return nil
+}
+
+var nodeTypeTypePropEnum []interface{}
+
+func init() {
+	var res []string
+	if err := json.Unmarshal([]byte(`["collection","leaf"]`), &res); err != nil {
+		panic(err)
+	}
+	for _, v := range res {
+		nodeTypeTypePropEnum = append(nodeTypeTypePropEnum, v)
+	}
+}
+
+const (
+
+	// NodeTypeCollection captures enum value "collection"
+	NodeTypeCollection string = "collection"
+
+	// NodeTypeLeaf captures enum value "leaf"
+	NodeTypeLeaf string = "leaf"
+)
+
+// prop value enum
+func (m *Node) validateTypeEnum(path, location string, value string) error {
+	if err := validate.Enum(path, location, value, nodeTypeTypePropEnum); err != nil {
+		return err
+	}
+	return nil
+}
+
+func (m *Node) validateType(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Type) { // not required
+		return nil
+	}
+
+	// value enum
+	if err := m.validateTypeEnum("type", "body", m.Type); err != nil {
+		return err
 	}
 
 	return nil

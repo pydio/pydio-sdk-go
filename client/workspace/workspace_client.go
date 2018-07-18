@@ -30,7 +30,7 @@ Changes Sends back all changes since a given sequence ID.
 This plugin requires **meta.syncable** active on the workspace.
 
 */
-func (a *Client) Changes(params *ChangesParams, authInfo runtime.ClientAuthInfoWriter) (*ChangesOK, error) {
+func (a *Client) Changes(params *ChangesParams) (*ChangesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewChangesParams()
@@ -41,11 +41,10 @@ func (a *Client) Changes(params *ChangesParams, authInfo runtime.ClientAuthInfoW
 		Method:             "GET",
 		PathPattern:        "/workspaces/{workspaceId}/changes/{sequenceId}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json", "application/x-www-form-urlencoded", "text/xml; charset=UTF-8"},
-		Schemes:            []string{"http", "https"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &ChangesReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -61,7 +60,7 @@ GetWorkspaceInfo Get information about the given workspace.
 Info can be gathered via various plugins. Pass the expected metadata type via the X-Pydio-Ws-Info header. Currently supported values are quota|info|changes
 
 */
-func (a *Client) GetWorkspaceInfo(params *GetWorkspaceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkspaceInfoOK, error) {
+func (a *Client) GetWorkspaceInfo(params *GetWorkspaceInfoParams) (*GetWorkspaceInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetWorkspaceInfoParams()
@@ -72,11 +71,10 @@ func (a *Client) GetWorkspaceInfo(params *GetWorkspaceInfoParams, authInfo runti
 		Method:             "GET",
 		PathPattern:        "/workspaces/{workspaceId}",
 		ProducesMediaTypes: []string{"application/json"},
-		ConsumesMediaTypes: []string{"application/json", "application/x-www-form-urlencoded", "text/xml; charset=UTF-8"},
-		Schemes:            []string{"http", "https"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetWorkspaceInfoReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

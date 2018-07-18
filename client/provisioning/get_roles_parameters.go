@@ -21,7 +21,7 @@ import (
 // NewGetRolesParams creates a new GetRolesParams object
 // with the default values initialized.
 func NewGetRolesParams() *GetRolesParams {
-
+	var ()
 	return &GetRolesParams{
 
 		timeout: cr.DefaultTimeout,
@@ -31,7 +31,7 @@ func NewGetRolesParams() *GetRolesParams {
 // NewGetRolesParamsWithTimeout creates a new GetRolesParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewGetRolesParamsWithTimeout(timeout time.Duration) *GetRolesParams {
-
+	var ()
 	return &GetRolesParams{
 
 		timeout: timeout,
@@ -41,7 +41,7 @@ func NewGetRolesParamsWithTimeout(timeout time.Duration) *GetRolesParams {
 // NewGetRolesParamsWithContext creates a new GetRolesParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewGetRolesParamsWithContext(ctx context.Context) *GetRolesParams {
-
+	var ()
 	return &GetRolesParams{
 
 		Context: ctx,
@@ -51,7 +51,7 @@ func NewGetRolesParamsWithContext(ctx context.Context) *GetRolesParams {
 // NewGetRolesParamsWithHTTPClient creates a new GetRolesParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewGetRolesParamsWithHTTPClient(client *http.Client) *GetRolesParams {
-
+	var ()
 	return &GetRolesParams{
 		HTTPClient: client,
 	}
@@ -61,6 +61,13 @@ func NewGetRolesParamsWithHTTPClient(client *http.Client) *GetRolesParams {
 for the get roles operation typically these are written to a http.Request
 */
 type GetRolesParams struct {
+
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -99,6 +106,17 @@ func (o *GetRolesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the get roles params
+func (o *GetRolesParams) WithFormat(format *string) *GetRolesParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the get roles params
+func (o *GetRolesParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *GetRolesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -106,6 +124,22 @@ func (o *GetRolesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regi
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

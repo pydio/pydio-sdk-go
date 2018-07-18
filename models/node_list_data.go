@@ -6,8 +6,6 @@ package models
 // Editing this file might prove futile when you re-run the swagger generate command
 
 import (
-	"strconv"
-
 	strfmt "github.com/go-openapi/strfmt"
 
 	"github.com/go-openapi/errors"
@@ -15,11 +13,11 @@ import (
 )
 
 // NodeListData node list data
-// swagger:model nodeListData
+// swagger:model NodeList_data
 type NodeListData struct {
 
 	// children
-	Children []*Node `json:"children"`
+	Children NodeListDataChildren `json:"children,omitempty"`
 
 	// node
 	Node *Node `json:"node,omitempty"`
@@ -49,20 +47,11 @@ func (m *NodeListData) validateChildren(formats strfmt.Registry) error {
 		return nil
 	}
 
-	for i := 0; i < len(m.Children); i++ {
-		if swag.IsZero(m.Children[i]) { // not required
-			continue
+	if err := m.Children.Validate(formats); err != nil {
+		if ve, ok := err.(*errors.Validation); ok {
+			return ve.ValidateName("children")
 		}
-
-		if m.Children[i] != nil {
-			if err := m.Children[i].Validate(formats); err != nil {
-				if ve, ok := err.(*errors.Validation); ok {
-					return ve.ValidateName("children" + "." + strconv.Itoa(i))
-				}
-				return err
-			}
-		}
-
+		return err
 	}
 
 	return nil

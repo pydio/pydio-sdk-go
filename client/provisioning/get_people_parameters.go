@@ -75,6 +75,11 @@ for the get people operation typically these are written to a http.Request
 */
 type GetPeopleParams struct {
 
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
 	/*List
 	  list children of the current resource
 
@@ -124,6 +129,17 @@ func (o *GetPeopleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the get people params
+func (o *GetPeopleParams) WithFormat(format *string) *GetPeopleParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the get people params
+func (o *GetPeopleParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithList adds the list to the get people params
 func (o *GetPeopleParams) WithList(list *bool) *GetPeopleParams {
 	o.SetList(list)
@@ -153,6 +169,22 @@ func (o *GetPeopleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Reg
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.List != nil {
 

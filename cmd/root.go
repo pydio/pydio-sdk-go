@@ -15,9 +15,10 @@ import (
 var (
 	configFile string
 
+	protocol   string
 	host       string
-	basePath   string
-	schemes    string
+	id         string
+	secret     string
 	user       string
 	pwd        string
 	skipVerify bool
@@ -25,25 +26,22 @@ var (
 
 var RootCmd = &cobra.Command{
 	Use:   os.Args[0],
-	Short: "Rest Client of Pydio 8",
-	Long:  `Pydio 8 client for managing API`,
+	Short: "Rest Client of Pydio Cells",
+	Long:  `Pydio Cells client for managing API`,
 	PersistentPreRun: func(cmd *cobra.Command, args []string) {
 
 		// Parse from parameters
-		if host != "" && basePath != "" && schemes != "" && user != "" && pwd != "" {
+		//if host != "" && id != "" && secret != "" && user != "" && pwd != "" {
+		if host != "" && user != "" && pwd != "" {
 			config.DefaultConfig = &config.SdkConfig{
-				Host:     host,
-				BasePath: basePath,
-				// TOTO schemes
-				Schemes:    []string{schemes},
-				SkipVerify: skipVerify,
-
-				// Pydio User Authentication
-				User:     user,
-				Password: pwd,
+				Protocol:     protocol,
+				Url:          host,
+				ClientKey:    id,
+				ClientSecret: secret,
+				User:         user,
+				Password:     pwd,
+				SkipVerify:   skipVerify,
 			}
-			fmt.Println("Connecting to " + config.DefaultConfig.Host)
-			fmt.Println("")
 			return
 		}
 
@@ -57,7 +55,7 @@ var RootCmd = &cobra.Command{
 				log.Fatal("Cannot decode config content", e)
 			}
 			config.DefaultConfig = &c
-			fmt.Println("Connecting to " + config.DefaultConfig.Host)
+			fmt.Println("Connecting to " + config.DefaultConfig.Url)
 			fmt.Println("")
 		} else {
 			log.Fatal("Cannot read file ", e)
@@ -73,12 +71,12 @@ func init() {
 	flags := RootCmd.PersistentFlags()
 	flags.StringVarP(&configFile, "config", "c", "config.json", "Path to the configuration file")
 
-	flags.StringVarP(&host, "host", "a", "", "Server ip address")
-	flags.StringVarP(&basePath, "basepath", "b", "", "Base path")
-	flags.StringVarP(&schemes, "schemes", "s", "", "schemes https/http")
+	flags.StringVar(&protocol, "protocol", "http", "Http scheme to server")
+	flags.StringVarP(&host, "url", "u", "", "Http URL to server")
+	// flags.StringVarP(&id, "id", "i", "", "OIDC Client ID")
+	// flags.StringVarP(&secret, "secret", "s", "", "OIDC Client Secret")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
-	
-	
 	flags.BoolVar(&skipVerify, "skipVerify", false, "Skip SSL certificate verification (not recommended)")
+
 }

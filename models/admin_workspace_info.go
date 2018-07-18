@@ -12,7 +12,7 @@ import (
 )
 
 // AdminWorkspaceInfo additional informations provided by the server
-// swagger:model adminWorkspaceInfo
+// swagger:model AdminWorkspace_info
 type AdminWorkspaceInfo struct {
 
 	// number of children shared from this workspace

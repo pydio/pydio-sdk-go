@@ -63,6 +63,11 @@ for the get role operation typically these are written to a http.Request
 */
 type GetRoleParams struct {
 
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
 	/*LoadFillValues
 	  Load additional data to build a form for editing this role
 
@@ -112,6 +117,17 @@ func (o *GetRoleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the get role params
+func (o *GetRoleParams) WithFormat(format *string) *GetRoleParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the get role params
+func (o *GetRoleParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithLoadFillValues adds the loadFillValues to the get role params
 func (o *GetRoleParams) WithLoadFillValues(loadFillValues *bool) *GetRoleParams {
 	o.SetLoadFillValues(loadFillValues)
@@ -141,6 +157,22 @@ func (o *GetRoleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Regis
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.LoadFillValues != nil {
 

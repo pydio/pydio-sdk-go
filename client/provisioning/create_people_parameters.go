@@ -62,6 +62,11 @@ for the create people operation typically these are written to a http.Request
 */
 type CreatePeopleParams struct {
 
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
 	/*GroupLabel
 	  Label of the new group if we are creating a group
 
@@ -121,6 +126,17 @@ func (o *CreatePeopleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the create people params
+func (o *CreatePeopleParams) WithFormat(format *string) *CreatePeopleParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the create people params
+func (o *CreatePeopleParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithGroupLabel adds the groupLabel to the create people params
 func (o *CreatePeopleParams) WithGroupLabel(groupLabel *string) *CreatePeopleParams {
 	o.SetGroupLabel(groupLabel)
@@ -172,6 +188,22 @@ func (o *CreatePeopleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.GroupLabel != nil {
 

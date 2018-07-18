@@ -62,6 +62,11 @@ for the delete people operation typically these are written to a http.Request
 */
 type DeletePeopleParams struct {
 
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
 	/*Path
 	  User or group identifier, including full group path
 
@@ -106,6 +111,17 @@ func (o *DeletePeopleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the delete people params
+func (o *DeletePeopleParams) WithFormat(format *string) *DeletePeopleParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the delete people params
+func (o *DeletePeopleParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithPath adds the path to the delete people params
 func (o *DeletePeopleParams) WithPath(path string) *DeletePeopleParams {
 	o.SetPath(path)
@@ -124,6 +140,22 @@ func (o *DeletePeopleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param path
 	if err := r.SetPathParam("path", o.Path); err != nil {

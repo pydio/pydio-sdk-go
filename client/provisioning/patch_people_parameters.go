@@ -64,6 +64,11 @@ for the patch people operation typically these are written to a http.Request
 */
 type PatchPeopleParams struct {
 
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
 	/*PatchTuple
 	  parameterName / parameterValue association
 
@@ -118,6 +123,17 @@ func (o *PatchPeopleParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the patch people params
+func (o *PatchPeopleParams) WithFormat(format *string) *PatchPeopleParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the patch people params
+func (o *PatchPeopleParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithPatchTuple adds the patchTuple to the patch people params
 func (o *PatchPeopleParams) WithPatchTuple(patchTuple *models.PeoplePatch) *PatchPeopleParams {
 	o.SetPatchTuple(patchTuple)
@@ -158,6 +174,22 @@ func (o *PatchPeopleParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.R
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.PatchTuple != nil {
 		if err := r.SetBodyParam(o.PatchTuple); err != nil {

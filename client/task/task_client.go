@@ -28,7 +28,7 @@ type Client struct {
 CreateTask Create a task on the server. This will generally trigger a server-side background "Task", which ID will be returned in the PydioResponse['tasks'] array
 
 */
-func (a *Client) CreateTask(params *CreateTaskParams, authInfo runtime.ClientAuthInfoWriter) (*CreateTaskOK, error) {
+func (a *Client) CreateTask(params *CreateTaskParams) (*CreateTaskOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateTaskParams()
@@ -38,12 +38,11 @@ func (a *Client) CreateTask(params *CreateTaskParams, authInfo runtime.ClientAut
 		ID:                 "createTask",
 		Method:             "POST",
 		PathPattern:        "/tasks/{taskId}",
-		ProducesMediaTypes: []string{"application/json; charset=UTF-8", "application/xml; charset=UTF-8", "text/xml; charset=UTF-8"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
+		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &CreateTaskReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -58,7 +57,7 @@ func (a *Client) CreateTask(params *CreateTaskParams, authInfo runtime.ClientAut
 DeleteTask Update a task on the server.
 
 */
-func (a *Client) DeleteTask(params *DeleteTaskParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteTaskOK, error) {
+func (a *Client) DeleteTask(params *DeleteTaskParams) (*DeleteTaskOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteTaskParams()
@@ -68,12 +67,11 @@ func (a *Client) DeleteTask(params *DeleteTaskParams, authInfo runtime.ClientAut
 		ID:                 "deleteTask",
 		Method:             "DELETE",
 		PathPattern:        "/tasks/{taskId}",
-		ProducesMediaTypes: []string{"application/json; charset=UTF-8", "application/xml; charset=UTF-8", "text/xml; charset=UTF-8"},
-		ConsumesMediaTypes: []string{"application/json", "application/x-www-form-urlencoded", "text/xml; charset=UTF-8"},
-		Schemes:            []string{"http", "https"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &DeleteTaskReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -88,7 +86,7 @@ func (a *Client) DeleteTask(params *DeleteTaskParams, authInfo runtime.ClientAut
 GetTaskInfo Get information about a currently running task Id
 
 */
-func (a *Client) GetTaskInfo(params *GetTaskInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetTaskInfoOK, error) {
+func (a *Client) GetTaskInfo(params *GetTaskInfoParams) (*GetTaskInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetTaskInfoParams()
@@ -98,12 +96,11 @@ func (a *Client) GetTaskInfo(params *GetTaskInfoParams, authInfo runtime.ClientA
 		ID:                 "getTaskInfo",
 		Method:             "GET",
 		PathPattern:        "/tasks/{taskId}",
-		ProducesMediaTypes: []string{"application/json; charset=UTF-8", "application/xml; charset=UTF-8", "text/xml; charset=UTF-8"},
-		ConsumesMediaTypes: []string{"application/json", "application/x-www-form-urlencoded", "text/xml; charset=UTF-8"},
-		Schemes:            []string{"http", "https"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &GetTaskInfoReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -118,7 +115,7 @@ func (a *Client) GetTaskInfo(params *GetTaskInfoParams, authInfo runtime.ClientA
 ListTasks List tasks currently running on the server (and visible to the current user).
 
 */
-func (a *Client) ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthInfoWriter) (*ListTasksOK, error) {
+func (a *Client) ListTasks(params *ListTasksParams) (*ListTasksOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewListTasksParams()
@@ -128,12 +125,11 @@ func (a *Client) ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthI
 		ID:                 "listTasks",
 		Method:             "GET",
 		PathPattern:        "/tasks",
-		ProducesMediaTypes: []string{"application/json; charset=UTF-8", "application/xml; charset=UTF-8", "text/xml; charset=UTF-8"},
-		ConsumesMediaTypes: []string{"application/json", "application/x-www-form-urlencoded", "text/xml; charset=UTF-8"},
-		Schemes:            []string{"http", "https"},
+		ProducesMediaTypes: []string{""},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &ListTasksReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -148,7 +144,7 @@ func (a *Client) ListTasks(params *ListTasksParams, authInfo runtime.ClientAuthI
 UpdateTask Update a task on the server.
 
 */
-func (a *Client) UpdateTask(params *UpdateTaskParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateTaskOK, error) {
+func (a *Client) UpdateTask(params *UpdateTaskParams) (*UpdateTaskOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateTaskParams()
@@ -158,12 +154,11 @@ func (a *Client) UpdateTask(params *UpdateTaskParams, authInfo runtime.ClientAut
 		ID:                 "updateTask",
 		Method:             "PATCH",
 		PathPattern:        "/tasks/{taskId}",
-		ProducesMediaTypes: []string{"application/json; charset=UTF-8", "application/xml; charset=UTF-8", "text/xml; charset=UTF-8"},
+		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http", "https"},
+		Schemes:            []string{"http"},
 		Params:             params,
 		Reader:             &UpdateTaskReader{formats: a.formats},
-		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
