@@ -883,7 +883,13 @@
         "description" : "List Workspaces\n",
         "operationId" : "adminListWorkspaces",
         "produces" : [ "application/json", "application/xml" ],
-        "parameters" : [ ],
+        "parameters" : [ {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Format produced in output (defaults to xml)",
+          "required" : false,
+          "type" : "string"
+        }],
         "responses" : {
           "200" : {
             "description" : "A list of workspaces represented as standard nodes",
@@ -961,6 +967,12 @@
           "description" : "Load additional data to build a form for editing this role",
           "required" : false,
           "type" : "boolean"
+        }, {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Format produced in output (defaults to xml)",
+          "required" : false,
+          "type" : "string"
         } ],
         "responses" : {
           "200" : {
@@ -1036,6 +1048,12 @@
           "in" : "path",
           "description" : "id or alias of this workspace",
           "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Format produced in output (defaults to xml)",
+          "required" : false,
           "type" : "string"
         }, {
           "name" : "metaId",

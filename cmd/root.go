@@ -17,8 +17,7 @@ var (
 
 	protocol   string
 	host       string
-	id         string
-	secret     string
+	path       string
 	user       string
 	pwd        string
 	skipVerify bool
@@ -36,8 +35,7 @@ var RootCmd = &cobra.Command{
 			config.DefaultConfig = &config.SdkConfig{
 				Protocol:     protocol,
 				Url:          host,
-				ClientKey:    id,
-				ClientSecret: secret,
+				Path:         path,
 				User:         user,
 				Password:     pwd,
 				SkipVerify:   skipVerify,
@@ -71,10 +69,9 @@ func init() {
 	flags := RootCmd.PersistentFlags()
 	flags.StringVarP(&configFile, "config", "c", "config.json", "Path to the configuration file")
 
-	flags.StringVar(&protocol, "protocol", "http", "Http scheme to server")
-	flags.StringVarP(&host, "url", "u", "", "Http URL to server")
-	// flags.StringVarP(&id, "id", "i", "", "OIDC Client ID")
-	// flags.StringVarP(&secret, "secret", "s", "", "OIDC Client Secret")
+	flags.StringVar(&protocol, "protocol", "http", "Http scheme to server (http|https)")
+	flags.StringVarP(&host, "url", "u", "", "Host to server (e.g. share.company.com)")
+	flags.StringVarP(&path, "path", "t", "", "Path to server (e.g. /pydio)")
 	flags.StringVarP(&user, "login", "l", "", "User login")
 	flags.StringVarP(&pwd, "password", "p", "", "User password")
 	flags.BoolVar(&skipVerify, "skipVerify", false, "Skip SSL certificate verification (not recommended)")

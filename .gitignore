@@ -3,3 +3,4 @@ config.json
 pydio-sdk-go
 .history
 vendor
+swagger_darwin_amd64

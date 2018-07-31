@@ -64,6 +64,11 @@ for the admin add workspace feature operation typically these are written to a h
 */
 type AdminAddWorkspaceFeatureParams struct {
 
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
 	/*MetaID
 	  plugin id for new meta
 
@@ -118,6 +123,17 @@ func (o *AdminAddWorkspaceFeatureParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the admin add workspace feature params
+func (o *AdminAddWorkspaceFeatureParams) WithFormat(format *string) *AdminAddWorkspaceFeatureParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the admin add workspace feature params
+func (o *AdminAddWorkspaceFeatureParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithMetaID adds the metaID to the admin add workspace feature params
 func (o *AdminAddWorkspaceFeatureParams) WithMetaID(metaID string) *AdminAddWorkspaceFeatureParams {
 	o.SetMetaID(metaID)
@@ -158,6 +174,22 @@ func (o *AdminAddWorkspaceFeatureParams) WriteToRequest(r runtime.ClientRequest,
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	// path param metaId
 	if err := r.SetPathParam("metaId", o.MetaID); err != nil {
