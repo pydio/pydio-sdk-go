@@ -11,7 +11,6 @@ import (
 
 	apiclient "github.com/pydio/pydio-sdk-go/client"
 	"path"
-	"fmt"
 )
 
 var (
