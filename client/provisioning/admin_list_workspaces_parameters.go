@@ -21,7 +21,7 @@ import (
 // NewAdminListWorkspacesParams creates a new AdminListWorkspacesParams object
 // with the default values initialized.
 func NewAdminListWorkspacesParams() *AdminListWorkspacesParams {
-
+	var ()
 	return &AdminListWorkspacesParams{
 
 		timeout: cr.DefaultTimeout,
@@ -31,7 +31,7 @@ func NewAdminListWorkspacesParams() *AdminListWorkspacesParams {
 // NewAdminListWorkspacesParamsWithTimeout creates a new AdminListWorkspacesParams object
 // with the default values initialized, and the ability to set a timeout on a request
 func NewAdminListWorkspacesParamsWithTimeout(timeout time.Duration) *AdminListWorkspacesParams {
-
+	var ()
 	return &AdminListWorkspacesParams{
 
 		timeout: timeout,
@@ -41,7 +41,7 @@ func NewAdminListWorkspacesParamsWithTimeout(timeout time.Duration) *AdminListWo
 // NewAdminListWorkspacesParamsWithContext creates a new AdminListWorkspacesParams object
 // with the default values initialized, and the ability to set a context for a request
 func NewAdminListWorkspacesParamsWithContext(ctx context.Context) *AdminListWorkspacesParams {
-
+	var ()
 	return &AdminListWorkspacesParams{
 
 		Context: ctx,
@@ -51,7 +51,7 @@ func NewAdminListWorkspacesParamsWithContext(ctx context.Context) *AdminListWork
 // NewAdminListWorkspacesParamsWithHTTPClient creates a new AdminListWorkspacesParams object
 // with the default values initialized, and the ability to set a custom HTTPClient for a request
 func NewAdminListWorkspacesParamsWithHTTPClient(client *http.Client) *AdminListWorkspacesParams {
-
+	var ()
 	return &AdminListWorkspacesParams{
 		HTTPClient: client,
 	}
@@ -61,6 +61,13 @@ func NewAdminListWorkspacesParamsWithHTTPClient(client *http.Client) *AdminListW
 for the admin list workspaces operation typically these are written to a http.Request
 */
 type AdminListWorkspacesParams struct {
+
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
+
 	timeout    time.Duration
 	Context    context.Context
 	HTTPClient *http.Client
@@ -99,6 +106,17 @@ func (o *AdminListWorkspacesParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the admin list workspaces params
+func (o *AdminListWorkspacesParams) WithFormat(format *string) *AdminListWorkspacesParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the admin list workspaces params
+func (o *AdminListWorkspacesParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WriteToRequest writes these params to a swagger request
 func (o *AdminListWorkspacesParams) WriteToRequest(r runtime.ClientRequest, reg strfmt.Registry) error {
 
@@ -106,6 +124,22 @@ func (o *AdminListWorkspacesParams) WriteToRequest(r runtime.ClientRequest, reg 
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if len(res) > 0 {
 		return errors.CompositeValidationError(res...)

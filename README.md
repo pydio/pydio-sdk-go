@@ -1,10 +1,8 @@
 # Cells API client
 
-**Warning, this is a Work In Progress**.
+**Work In Progress**.
 
-Rest API Client for Pydio Cells.
-
-Current SDK has been update on **May, the 31st 2018** with git commit **da477ac1bd957f4d945242dcab0647fd567a4faa**.
+Rest API Client for Pydio 8.
 
 ## Overview
 
@@ -41,12 +39,11 @@ wget https://github.com/go-swagger/go-swagger/releases/download/0.14.0/swagger_d
 _After each API Spec modification_:
 
 ```sh
-# retrieve latest spec file
-wget https://raw.githubusercontent.com/pydio/cells/master/common/proto/rest/rest.swagger.json
-# You might also delete folder models and client 
-
-# simply generate updated code
-./swagger generate client --skip-validation -f rest.swagger.json
+# retrieve latest spec file from pydio-core project
+wget https://raw.githubusercontent.com/pydio/pydio-core/develop/core/src/plugins/core.ajaxplorer/routes/api2.json
+# Delete folder models and client 
+# Generate updated code
+./swagger generate client --skip-validation -f api2.json
 
 # Apply the twick to workaround int64 serialisation issue between protobuf and swagger
 go run main.go twick-model
@@ -54,4 +51,4 @@ go run main.go twick-model
 
 You should also update version information at the top of this page.
 
-_**NOTE**: we use the --skip-validation flag to avoid circular issues with object that make reference to same type of objects, typically activities and jobs. See [issue #957 in go-swagger repository](https://github.com/go-swagger/go-swagger/issues/957) for more details._
+**NOTE**: we use the --skip-validation flag to avoid circular issues

@@ -43,6 +43,10 @@ func getUsersFromPath(path string) error {
 		return err
 	}
 
+	if result.Payload == nil || result.Payload.Data == nil || result.Payload.Data.Children == nil {
+		return fmt.Errorf("Could not load users")
+	}
+
 	for key, node := range result.Payload.Data.Children {
 		if node.Type == "collection" {
 			err := getUsersFromPath(strings.TrimLeft(key, "/"))

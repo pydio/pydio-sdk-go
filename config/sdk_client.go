@@ -10,28 +10,21 @@ import (
 	"github.com/go-openapi/strfmt"
 
 	apiclient "github.com/pydio/pydio-sdk-go/client"
+	"path"
 )
 
 var (
-	ApiResourcePath  = "/pydio/api/v2"
-	OidcResourcePath = "/auth/dex"
-
-	grantType = "password"
-	scope     = "email profile pydio"
-
-	store = NewTokenStore()
+	ApiResourcePath  = "/api/v2"
 )
 
 // GetPreparedApiClient connects to the Pydio Cells server defined by this config.
 // Also returns a context to be used in subsequent requests.
 func GetPreparedApiClient(sdkConfig *SdkConfig) (*apiclient.PydioAPIV2, context.Context, error) {
 
-	transport := httptransport.New(sdkConfig.Url, ApiResourcePath, []string{sdkConfig.Protocol})
-
+	resourcePath := path.Join(sdkConfig.Path, ApiResourcePath)
+	transport := httptransport.New(sdkConfig.Url, resourcePath, []string{sdkConfig.Protocol})
 	basicAuth := httptransport.BasicAuth(sdkConfig.User, sdkConfig.Password)
-
 	transport.DefaultAuthentication = basicAuth
-
 	client := apiclient.New(transport, strfmt.Default)
 
 	return client, context.Background(), nil

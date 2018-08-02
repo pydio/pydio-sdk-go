@@ -63,6 +63,11 @@ for the admin get workspace operation typically these are written to a http.Requ
 */
 type AdminGetWorkspaceParams struct {
 
+	/*Format
+	  Format produced in output (defaults to xml)
+
+	*/
+	Format *string
 	/*LoadFillValues
 	  Load additional data to build a form for editing this role
 
@@ -112,6 +117,17 @@ func (o *AdminGetWorkspaceParams) SetHTTPClient(client *http.Client) {
 	o.HTTPClient = client
 }
 
+// WithFormat adds the format to the admin get workspace params
+func (o *AdminGetWorkspaceParams) WithFormat(format *string) *AdminGetWorkspaceParams {
+	o.SetFormat(format)
+	return o
+}
+
+// SetFormat adds the format to the admin get workspace params
+func (o *AdminGetWorkspaceParams) SetFormat(format *string) {
+	o.Format = format
+}
+
 // WithLoadFillValues adds the loadFillValues to the admin get workspace params
 func (o *AdminGetWorkspaceParams) WithLoadFillValues(loadFillValues *bool) *AdminGetWorkspaceParams {
 	o.SetLoadFillValues(loadFillValues)
@@ -141,6 +157,22 @@ func (o *AdminGetWorkspaceParams) WriteToRequest(r runtime.ClientRequest, reg st
 		return err
 	}
 	var res []error
+
+	if o.Format != nil {
+
+		// query param format
+		var qrFormat string
+		if o.Format != nil {
+			qrFormat = *o.Format
+		}
+		qFormat := qrFormat
+		if qFormat != "" {
+			if err := r.SetQueryParam("format", qFormat); err != nil {
+				return err
+			}
+		}
+
+	}
 
 	if o.LoadFillValues != nil {
 
