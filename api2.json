@@ -1279,6 +1279,15 @@
         },
         "children" : {
           "$ref" : "#/definitions/NodeList"
+        },
+        "ajxp_roles" : {
+          "type": "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "json_merged_role" : {
+          "$ref" : "#/definitions/Role"
         }
       },
       "title" : "Node",
@@ -1299,7 +1308,8 @@
         "children" : null,
         "ajxp_modiftime" : 5,
         "repo_has_recycle" : true,
-        "file_perms" : "file_perms"
+        "file_perms" : "file_perms",
+        "ajxp_roles": "[]"
       }
     },
     "NodesDiff" : {
@@ -1365,7 +1375,8 @@
             "children" : null,
             "ajxp_modiftime" : 5,
             "repo_has_recycle" : true,
-            "file_perms" : "file_perms"
+            "file_perms" : "file_perms",
+            "ajxp_roles": "[]"
           },
           "children" : {
             "key" : {
@@ -1384,7 +1395,8 @@
               "children" : null,
               "ajxp_modiftime" : 5,
               "repo_has_recycle" : true,
-              "file_perms" : "file_perms"
+              "file_perms" : "file_perms",
+              "ajxp_roles": "[]"
             }
           }
         }

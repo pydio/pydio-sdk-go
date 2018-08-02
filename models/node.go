@@ -33,6 +33,9 @@ type Node struct {
 	// ajxp relativetime
 	AjxpRelativetime string `json:"ajxp_relativetime,omitempty"`
 
+	// ajxp roles
+	AjxpRoles []string `json:"ajxp_roles"`
+
 	// bytesize
 	Bytesize int64 `json:"bytesize,omitempty"`
 
@@ -50,6 +53,9 @@ type Node struct {
 
 	// is leaf
 	IsLeaf bool `json:"is_leaf,omitempty"`
+
+	// json merged role
+	JSONMergedRole *Role `json:"json_merged_role,omitempty"`
 
 	// label
 	Label string `json:"label,omitempty"`
@@ -79,6 +85,10 @@ func (m *Node) Validate(formats strfmt.Registry) error {
 		res = append(res, err)
 	}
 
+	if err := m.validateJSONMergedRole(formats); err != nil {
+		res = append(res, err)
+	}
+
 	if err := m.validateType(formats); err != nil {
 		res = append(res, err)
 	}
@@ -99,6 +109,24 @@ func (m *Node) validateChildren(formats strfmt.Registry) error {
 		if err := m.Children.Validate(formats); err != nil {
 			if ve, ok := err.(*errors.Validation); ok {
 				return ve.ValidateName("children")
+			}
+			return err
+		}
+	}
+
+	return nil
+}
+
+func (m *Node) validateJSONMergedRole(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.JSONMergedRole) { // not required
+		return nil
+	}
+
+	if m.JSONMergedRole != nil {
+		if err := m.JSONMergedRole.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("json_merged_role")
 			}
 			return err
 		}
