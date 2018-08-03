@@ -1299,10 +1299,8 @@
           "$ref" : "#/definitions/NodeList"
         },
         "ajxp_roles" : {
-          "type": "array",
-          "items" : {
-            "type" : "string"
-          }
+          "type": "object",
+          "properties" : { }
         },
         "json_merged_role" : {
           "$ref" : "#/definitions/Role"

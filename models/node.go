@@ -34,7 +34,7 @@ type Node struct {
 	AjxpRelativetime string `json:"ajxp_relativetime,omitempty"`
 
 	// ajxp roles
-	AjxpRoles []string `json:"ajxp_roles"`
+	AjxpRoles interface{} `json:"ajxp_roles,omitempty"`
 
 	// bytesize
 	Bytesize int64 `json:"bytesize,omitempty"`
