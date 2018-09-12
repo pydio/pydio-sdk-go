@@ -12,17 +12,13 @@ import (
 )
 
 const (
-	sampleFilePath   = "config.sample.json"
-	sampleS3FilePath = "config-s3.sample.json"
+	sampleFilePath = "config.sample.json"
 )
 
 func TestSetUpProcess(t *testing.T) {
 
 	Convey("Sample files should be found", t, func() {
 		_, e := ioutil.ReadFile(sampleFilePath)
-		So(e, ShouldBeNil)
-
-		_, e = ioutil.ReadFile(sampleS3FilePath)
 		So(e, ShouldBeNil)
 	})
 
@@ -38,12 +34,6 @@ func TestSetUpProcess(t *testing.T) {
 		e := json.Unmarshal(s, &c)
 		So(e, ShouldBeNil)
 		So(c.User, ShouldEqual, "admin")
-
-		s3, _ := ioutil.ReadFile(sampleS3FilePath)
-		var c2 S3Config
-		e = json.Unmarshal(s3, &c2)
-		So(e, ShouldBeNil)
-		So(c2.ApiSecret, ShouldEqual, "gatewaysecret")
 	})
 
 	Convey("SDK should be configured", t, func() {
@@ -56,28 +46,17 @@ func TestSetUpProcess(t *testing.T) {
 		So(DefaultConfig.User, ShouldEqual, "admin")
 	})
 
-	Convey("Default S3Config should be loaded", t, func() {
-		s3, _ := ioutil.ReadFile(sampleS3FilePath)
-		var c S3Config
-		e := json.Unmarshal(s3, &c)
-		So(e, ShouldBeNil)
-
-		DefaultS3Config = &c
-		So(DefaultS3Config.ApiSecret, ShouldEqual, "gatewaysecret")
-	})
 }
 
 func TestEnvConfiguration(t *testing.T) {
 
 	Convey("Environment must be configured", t, func() {
 
-		SkipConvey("Pydio Cells SDK must be configured", func() {
+		Convey("Pydio Cells SDK must be configured", func() {
 			var c SdkConfig
 			// check presence of Env variable
 			protocol := os.Getenv(KeyProtocol)
 			url := os.Getenv(KeyURL)
-			clientKey := os.Getenv(KeyClientKey)
-			clientSecret := os.Getenv(KeyClientSecret)
 			user := os.Getenv(KeyUser)
 			password := os.Getenv(KeyPassword)
 			skipVerifyStr := os.Getenv(KeySkipVerify)
@@ -86,11 +65,9 @@ func TestEnvConfiguration(t *testing.T) {
 			}
 			skipVerify, err := strconv.ParseBool(skipVerifyStr)
 			So(err, ShouldBeNil)
-			if len(protocol) > 0 && len(url) > 0 && len(clientKey) > 0 && len(clientSecret) > 0 && len(user) > 0 && len(password) > 0 {
+			if len(protocol) > 0 && len(url) > 0 && len(user) > 0 && len(password) > 0 {
 				c.Protocol = protocol
 				c.Url = url
-				c.ClientKey = clientKey
-				c.ClientSecret = clientSecret
 				c.User = user
 				c.Password = password
 				c.SkipVerify = skipVerify
