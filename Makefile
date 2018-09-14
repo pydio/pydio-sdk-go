@@ -15,6 +15,9 @@ main:
 dev:
 	go build -ldflags "-X github.com/pydio/pydio-sdk-go/config.version=0.2.0 -X github.com/pydio/pydio-sdk-go/config.BuildStamp=2018-01-01T00:00:00 -X github.com/pydio/pydio-sdk-go/config.BuildRevision=dev" -o pydio-sdk-go main.go
 
+js:
+	swagger-codegen generate -i api2.json -l javascript -c swagger-jsclient.json -o /tmp/pydio-js-client
+
 cleanall: stop clean rm
 
 clean:

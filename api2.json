@@ -7,7 +7,15 @@
   },
   "host" : "localhost",
   "basePath" : "/api/v2",
-  "schemes" : [ "http" ],
+  "schemes" : [ "http", "https" ],
+  "securityDefinitions":{
+    "basicAuth":{"type":"basic"}
+  },
+  "security":[
+    {
+      "basicAuth":[]
+    }
+  ],
   "paths" : {
     "/fs/{path}" : {
       "get" : {
