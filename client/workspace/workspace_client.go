@@ -30,7 +30,7 @@ Changes Sends back all changes since a given sequence ID.
 This plugin requires **meta.syncable** active on the workspace.
 
 */
-func (a *Client) Changes(params *ChangesParams) (*ChangesOK, error) {
+func (a *Client) Changes(params *ChangesParams, authInfo runtime.ClientAuthInfoWriter) (*ChangesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewChangesParams()
@@ -42,9 +42,10 @@ func (a *Client) Changes(params *ChangesParams) (*ChangesOK, error) {
 		PathPattern:        "/workspaces/{workspaceId}/changes/{sequenceId}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &ChangesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -60,7 +61,7 @@ GetWorkspaceInfo Get information about the given workspace.
 Info can be gathered via various plugins. Pass the expected metadata type via the X-Pydio-Ws-Info header. Currently supported values are quota|info|changes
 
 */
-func (a *Client) GetWorkspaceInfo(params *GetWorkspaceInfoParams) (*GetWorkspaceInfoOK, error) {
+func (a *Client) GetWorkspaceInfo(params *GetWorkspaceInfoParams, authInfo runtime.ClientAuthInfoWriter) (*GetWorkspaceInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetWorkspaceInfoParams()
@@ -72,9 +73,10 @@ func (a *Client) GetWorkspaceInfo(params *GetWorkspaceInfoParams) (*GetWorkspace
 		PathPattern:        "/workspaces/{workspaceId}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetWorkspaceInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

@@ -33,7 +33,7 @@ CreateNode Create new resources or move/copy existing resources:
 + Rename / Move a resource : basically a copy operation followed by a delete of original
 
 */
-func (a *Client) CreateNode(params *CreateNodeParams) (*CreateNodeOK, error) {
+func (a *Client) CreateNode(params *CreateNodeParams, authInfo runtime.ClientAuthInfoWriter) (*CreateNodeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateNodeParams()
@@ -45,9 +45,10 @@ func (a *Client) CreateNode(params *CreateNodeParams) (*CreateNodeOK, error) {
 		PathPattern:        "/fs/{path}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -62,7 +63,7 @@ func (a *Client) CreateNode(params *CreateNodeParams) (*CreateNodeOK, error) {
 DeleteNode Delete existing resource
 
 */
-func (a *Client) DeleteNode(params *DeleteNodeParams) (*DeleteNodeOK, error) {
+func (a *Client) DeleteNode(params *DeleteNodeParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteNodeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteNodeParams()
@@ -74,9 +75,10 @@ func (a *Client) DeleteNode(params *DeleteNodeParams) (*DeleteNodeOK, error) {
 		PathPattern:        "/fs/{path}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -91,7 +93,7 @@ func (a *Client) DeleteNode(params *DeleteNodeParams) (*DeleteNodeOK, error) {
 Download Get resource content. Depending on the attachment parameter, will try to either trigger a download, or send binary stream with appropriate headers. Depending on the active plugins, may be able to serve: + Plain text + MP3/Wav Stream + MP4 Stream + On-the-fly generated images + On-the-fly generated thumbnails for images or pdf
 
 */
-func (a *Client) Download(params *DownloadParams, writer io.Writer) (*DownloadOK, error) {
+func (a *Client) Download(params *DownloadParams, authInfo runtime.ClientAuthInfoWriter, writer io.Writer) (*DownloadOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDownloadParams()
@@ -103,9 +105,10 @@ func (a *Client) Download(params *DownloadParams, writer io.Writer) (*DownloadOK
 		PathPattern:        "/io/{path}",
 		ProducesMediaTypes: []string{"application/octet-stream"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DownloadReader{formats: a.formats, writer: writer},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -124,7 +127,7 @@ For collections (folders), pass the **children** parameter to list its content.
 To access the actual content of the nodes, see the I/O API.
 
 */
-func (a *Client) GetNodeInfos(params *GetNodeInfosParams) (*GetNodeInfosOK, error) {
+func (a *Client) GetNodeInfos(params *GetNodeInfosParams, authInfo runtime.ClientAuthInfoWriter) (*GetNodeInfosOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetNodeInfosParams()
@@ -136,9 +139,10 @@ func (a *Client) GetNodeInfos(params *GetNodeInfosParams) (*GetNodeInfosOK, erro
 		PathPattern:        "/fs/{path}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetNodeInfosReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -157,7 +161,7 @@ For example :
 etc...
 
 */
-func (a *Client) UpdateNode(params *UpdateNodeParams) (*UpdateNodeOK, error) {
+func (a *Client) UpdateNode(params *UpdateNodeParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateNodeOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateNodeParams()
@@ -169,9 +173,10 @@ func (a *Client) UpdateNode(params *UpdateNodeParams) (*UpdateNodeOK, error) {
 		PathPattern:        "/fs/{path}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UpdateNodeReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -186,7 +191,7 @@ func (a *Client) UpdateNode(params *UpdateNodeParams) (*UpdateNodeOK, error) {
 UploadStream Create or update resource by posting to Input Stream
 
 */
-func (a *Client) UploadStream(params *UploadStreamParams) (*UploadStreamOK, error) {
+func (a *Client) UploadStream(params *UploadStreamParams, authInfo runtime.ClientAuthInfoWriter) (*UploadStreamOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUploadStreamParams()
@@ -198,9 +203,10 @@ func (a *Client) UploadStream(params *UploadStreamParams) (*UploadStreamOK, erro
 		PathPattern:        "/io/{path}",
 		ProducesMediaTypes: []string{""},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UploadStreamReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

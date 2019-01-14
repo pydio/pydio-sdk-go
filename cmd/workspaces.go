@@ -29,7 +29,7 @@ func getWorkspaces() error {
 		Format:     &format,
 	}
 
-	result, err := apiClient.Provisioning.AdminListWorkspaces(params)
+	result, err := apiClient.Provisioning.AdminListWorkspaces(params, nil)
 	if err != nil {
 		return err
 	}
@@ -48,7 +48,7 @@ func getWorkspaces() error {
 			Format:&format,
 			WorkspaceID:key,
 		}
-		if res, e := apiClient.Provisioning.AdminGetWorkspace(wsParams); e == nil {
+		if res, e := apiClient.Provisioning.AdminGetWorkspace(wsParams, nil); e == nil {
 			ws := res.Payload
 			wsParams := ws.Parameters.(map[string]interface{})
 			if *ws.AccessType == "fs" {

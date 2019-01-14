@@ -37,7 +37,7 @@ var ListRoleCmd = &cobra.Command{
 			Format:     &format,
 		}
 
-		result, err := apiClient.Provisioning.GetRoles(params)
+		result, err := apiClient.Provisioning.GetRoles(params, nil)
 		if err != nil {
 			fmt.Printf("could not list roles: %s\n", err.Error())
 			log.Fatal(err)

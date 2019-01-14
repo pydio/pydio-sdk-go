@@ -38,7 +38,7 @@ func getUsersFromPath(path string) error {
 		Path: path,
 	}
 
-	result, err :=  apiClient.Provisioning.GetPeople(params)
+	result, err :=  apiClient.Provisioning.GetPeople(params, nil)
 	if err != nil {
 		return err
 	}

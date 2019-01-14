@@ -28,7 +28,7 @@ type Client struct {
 AdminAddWorkspaceFeature Add a metasource
 
 */
-func (a *Client) AdminAddWorkspaceFeature(params *AdminAddWorkspaceFeatureParams) (*AdminAddWorkspaceFeatureOK, error) {
+func (a *Client) AdminAddWorkspaceFeature(params *AdminAddWorkspaceFeatureParams, authInfo runtime.ClientAuthInfoWriter) (*AdminAddWorkspaceFeatureOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminAddWorkspaceFeatureParams()
@@ -40,9 +40,10 @@ func (a *Client) AdminAddWorkspaceFeature(params *AdminAddWorkspaceFeatureParams
 		PathPattern:        "/admin/workspaces/{workspaceId}/features/{metaId}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminAddWorkspaceFeatureReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -57,7 +58,7 @@ func (a *Client) AdminAddWorkspaceFeature(params *AdminAddWorkspaceFeatureParams
 AdminCreateWorkspace Create a workspace from scratch by posting JSON data
 
 */
-func (a *Client) AdminCreateWorkspace(params *AdminCreateWorkspaceParams) (*AdminCreateWorkspaceOK, error) {
+func (a *Client) AdminCreateWorkspace(params *AdminCreateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter) (*AdminCreateWorkspaceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminCreateWorkspaceParams()
@@ -69,9 +70,10 @@ func (a *Client) AdminCreateWorkspace(params *AdminCreateWorkspaceParams) (*Admi
 		PathPattern:        "/admin/workspaces",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminCreateWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -86,7 +88,7 @@ func (a *Client) AdminCreateWorkspace(params *AdminCreateWorkspaceParams) (*Admi
 AdminDeleteWorkspace Load detail of a workspace
 
 */
-func (a *Client) AdminDeleteWorkspace(params *AdminDeleteWorkspaceParams) (*AdminDeleteWorkspaceOK, error) {
+func (a *Client) AdminDeleteWorkspace(params *AdminDeleteWorkspaceParams, authInfo runtime.ClientAuthInfoWriter) (*AdminDeleteWorkspaceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminDeleteWorkspaceParams()
@@ -98,9 +100,10 @@ func (a *Client) AdminDeleteWorkspace(params *AdminDeleteWorkspaceParams) (*Admi
 		PathPattern:        "/admin/workspaces/{workspaceId}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminDeleteWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -115,7 +118,7 @@ func (a *Client) AdminDeleteWorkspace(params *AdminDeleteWorkspaceParams) (*Admi
 AdminEditWorkspace NOT IMPLEMENTED YET - Edit details of a workspace
 
 */
-func (a *Client) AdminEditWorkspace(params *AdminEditWorkspaceParams) (*AdminEditWorkspaceOK, error) {
+func (a *Client) AdminEditWorkspace(params *AdminEditWorkspaceParams, authInfo runtime.ClientAuthInfoWriter) (*AdminEditWorkspaceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminEditWorkspaceParams()
@@ -127,9 +130,10 @@ func (a *Client) AdminEditWorkspace(params *AdminEditWorkspaceParams) (*AdminEdi
 		PathPattern:        "/admin/workspaces/{workspaceId}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminEditWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -144,7 +148,7 @@ func (a *Client) AdminEditWorkspace(params *AdminEditWorkspaceParams) (*AdminEdi
 AdminEditWorkspaceFeature Edit a metasource
 
 */
-func (a *Client) AdminEditWorkspaceFeature(params *AdminEditWorkspaceFeatureParams) (*AdminEditWorkspaceFeatureOK, error) {
+func (a *Client) AdminEditWorkspaceFeature(params *AdminEditWorkspaceFeatureParams, authInfo runtime.ClientAuthInfoWriter) (*AdminEditWorkspaceFeatureOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminEditWorkspaceFeatureParams()
@@ -156,9 +160,10 @@ func (a *Client) AdminEditWorkspaceFeature(params *AdminEditWorkspaceFeaturePara
 		PathPattern:        "/admin/workspaces/{workspaceId}/features/{metaId}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminEditWorkspaceFeatureReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -173,7 +178,7 @@ func (a *Client) AdminEditWorkspaceFeature(params *AdminEditWorkspaceFeaturePara
 AdminGetWorkspace Load detail of a workspace
 
 */
-func (a *Client) AdminGetWorkspace(params *AdminGetWorkspaceParams) (*AdminGetWorkspaceOK, error) {
+func (a *Client) AdminGetWorkspace(params *AdminGetWorkspaceParams, authInfo runtime.ClientAuthInfoWriter) (*AdminGetWorkspaceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminGetWorkspaceParams()
@@ -185,9 +190,10 @@ func (a *Client) AdminGetWorkspace(params *AdminGetWorkspaceParams) (*AdminGetWo
 		PathPattern:        "/admin/workspaces/{workspaceId}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminGetWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -202,7 +208,7 @@ func (a *Client) AdminGetWorkspace(params *AdminGetWorkspaceParams) (*AdminGetWo
 AdminListWorkspaces List Workspaces
 
 */
-func (a *Client) AdminListWorkspaces(params *AdminListWorkspacesParams) (*AdminListWorkspacesOK, error) {
+func (a *Client) AdminListWorkspaces(params *AdminListWorkspacesParams, authInfo runtime.ClientAuthInfoWriter) (*AdminListWorkspacesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminListWorkspacesParams()
@@ -214,9 +220,10 @@ func (a *Client) AdminListWorkspaces(params *AdminListWorkspacesParams) (*AdminL
 		PathPattern:        "/admin/workspaces",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminListWorkspacesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -228,10 +235,68 @@ func (a *Client) AdminListWorkspaces(params *AdminListWorkspacesParams) (*AdminL
 }
 
 /*
+AdminLoadShareList Get list of share on workspace
+*/
+func (a *Client) AdminLoadShareList(params *AdminLoadShareListParams, authInfo runtime.ClientAuthInfoWriter) (*AdminLoadShareListOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAdminLoadShareListParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "adminLoadShareList",
+		Method:             "GET",
+		PathPattern:        "/admin/workspaces/{workspaceId}/sharelist-load",
+		ProducesMediaTypes: []string{"application/json", "application/xml"},
+		ConsumesMediaTypes: []string{"application/json"},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AdminLoadShareListReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AdminLoadShareListOK), nil
+
+}
+
+/*
+AdminLoadSharedElementData Get detail of share
+*/
+func (a *Client) AdminLoadSharedElementData(params *AdminLoadSharedElementDataParams, authInfo runtime.ClientAuthInfoWriter) (*AdminLoadSharedElementDataOK, error) {
+	// TODO: Validate the params before sending
+	if params == nil {
+		params = NewAdminLoadSharedElementDataParams()
+	}
+
+	result, err := a.transport.Submit(&runtime.ClientOperation{
+		ID:                 "adminLoadSharedElementData",
+		Method:             "POST",
+		PathPattern:        "/admin/workspaces/{workspaceId}/load-shared-element-data/{file}",
+		ProducesMediaTypes: []string{"application/json"},
+		ConsumesMediaTypes: []string{""},
+		Schemes:            []string{"http", "https"},
+		Params:             params,
+		Reader:             &AdminLoadSharedElementDataReader{formats: a.formats},
+		AuthInfo:           authInfo,
+		Context:            params.Context,
+		Client:             params.HTTPClient,
+	})
+	if err != nil {
+		return nil, err
+	}
+	return result.(*AdminLoadSharedElementDataOK), nil
+
+}
+
+/*
 AdminRemoveWorkspaceFeature Edit a metasource
 
 */
-func (a *Client) AdminRemoveWorkspaceFeature(params *AdminRemoveWorkspaceFeatureParams) (*AdminRemoveWorkspaceFeatureOK, error) {
+func (a *Client) AdminRemoveWorkspaceFeature(params *AdminRemoveWorkspaceFeatureParams, authInfo runtime.ClientAuthInfoWriter) (*AdminRemoveWorkspaceFeatureOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminRemoveWorkspaceFeatureParams()
@@ -243,9 +308,10 @@ func (a *Client) AdminRemoveWorkspaceFeature(params *AdminRemoveWorkspaceFeature
 		PathPattern:        "/admin/workspaces/{workspaceId}/features/{metaId}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminRemoveWorkspaceFeatureReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -260,7 +326,7 @@ func (a *Client) AdminRemoveWorkspaceFeature(params *AdminRemoveWorkspaceFeature
 AdminUpdateWorkspace Update a workspace by posting JSON data
 
 */
-func (a *Client) AdminUpdateWorkspace(params *AdminUpdateWorkspaceParams) (*AdminUpdateWorkspaceOK, error) {
+func (a *Client) AdminUpdateWorkspace(params *AdminUpdateWorkspaceParams, authInfo runtime.ClientAuthInfoWriter) (*AdminUpdateWorkspaceOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewAdminUpdateWorkspaceParams()
@@ -272,9 +338,10 @@ func (a *Client) AdminUpdateWorkspace(params *AdminUpdateWorkspaceParams) (*Admi
 		PathPattern:        "/admin/workspaces",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &AdminUpdateWorkspaceReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -289,7 +356,7 @@ func (a *Client) AdminUpdateWorkspace(params *AdminUpdateWorkspaceParams) (*Admi
 CreatePeople Create a new user or a new group with this path. To create a user,  make sure to pass a userPass parameter. Otherwise it will create a  group.
 
 */
-func (a *Client) CreatePeople(params *CreatePeopleParams) (*CreatePeopleOK, error) {
+func (a *Client) CreatePeople(params *CreatePeopleParams, authInfo runtime.ClientAuthInfoWriter) (*CreatePeopleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreatePeopleParams()
@@ -301,9 +368,10 @@ func (a *Client) CreatePeople(params *CreatePeopleParams) (*CreatePeopleOK, erro
 		PathPattern:        "/admin/people/{path}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreatePeopleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -318,7 +386,7 @@ func (a *Client) CreatePeople(params *CreatePeopleParams) (*CreatePeopleOK, erro
 CreateRole Create a new role with this ID
 
 */
-func (a *Client) CreateRole(params *CreateRoleParams) (*CreateRoleOK, error) {
+func (a *Client) CreateRole(params *CreateRoleParams, authInfo runtime.ClientAuthInfoWriter) (*CreateRoleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewCreateRoleParams()
@@ -330,9 +398,10 @@ func (a *Client) CreateRole(params *CreateRoleParams) (*CreateRoleOK, error) {
 		PathPattern:        "/admin/roles/{roleId}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &CreateRoleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -347,7 +416,7 @@ func (a *Client) CreateRole(params *CreateRoleParams) (*CreateRoleOK, error) {
 DeletePeople Delete Role by Id
 
 */
-func (a *Client) DeletePeople(params *DeletePeopleParams) (*DeletePeopleOK, error) {
+func (a *Client) DeletePeople(params *DeletePeopleParams, authInfo runtime.ClientAuthInfoWriter) (*DeletePeopleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeletePeopleParams()
@@ -359,9 +428,10 @@ func (a *Client) DeletePeople(params *DeletePeopleParams) (*DeletePeopleOK, erro
 		PathPattern:        "/admin/people/{path}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeletePeopleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -376,7 +446,7 @@ func (a *Client) DeletePeople(params *DeletePeopleParams) (*DeletePeopleOK, erro
 DeleteRole Delete Role by Id
 
 */
-func (a *Client) DeleteRole(params *DeleteRoleParams) (*DeleteRoleOK, error) {
+func (a *Client) DeleteRole(params *DeleteRoleParams, authInfo runtime.ClientAuthInfoWriter) (*DeleteRoleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewDeleteRoleParams()
@@ -388,9 +458,10 @@ func (a *Client) DeleteRole(params *DeleteRoleParams) (*DeleteRoleOK, error) {
 		PathPattern:        "/admin/roles/{roleId}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &DeleteRoleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -405,7 +476,7 @@ func (a *Client) DeleteRole(params *DeleteRoleParams) (*DeleteRoleOK, error) {
 GetPeople List roles
 
 */
-func (a *Client) GetPeople(params *GetPeopleParams) (*GetPeopleOK, error) {
+func (a *Client) GetPeople(params *GetPeopleParams, authInfo runtime.ClientAuthInfoWriter) (*GetPeopleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetPeopleParams()
@@ -417,9 +488,10 @@ func (a *Client) GetPeople(params *GetPeopleParams) (*GetPeopleOK, error) {
 		PathPattern:        "/admin/people/{path}",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetPeopleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -434,7 +506,7 @@ func (a *Client) GetPeople(params *GetPeopleParams) (*GetPeopleOK, error) {
 GetRole Get Role by Id
 
 */
-func (a *Client) GetRole(params *GetRoleParams) (*GetRoleOK, error) {
+func (a *Client) GetRole(params *GetRoleParams, authInfo runtime.ClientAuthInfoWriter) (*GetRoleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRoleParams()
@@ -446,9 +518,10 @@ func (a *Client) GetRole(params *GetRoleParams) (*GetRoleOK, error) {
 		PathPattern:        "/admin/roles/{roleId}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRoleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -463,7 +536,7 @@ func (a *Client) GetRole(params *GetRoleParams) (*GetRoleOK, error) {
 GetRoles List roles
 
 */
-func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {
+func (a *Client) GetRoles(params *GetRolesParams, authInfo runtime.ClientAuthInfoWriter) (*GetRolesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewGetRolesParams()
@@ -475,9 +548,10 @@ func (a *Client) GetRoles(params *GetRolesParams) (*GetRolesOK, error) {
 		PathPattern:        "/admin/roles",
 		ProducesMediaTypes: []string{"application/json", "application/xml"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &GetRolesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -506,7 +580,7 @@ Authorized parameterName values are described below, along with the parameterVal
 To edit user/group permissions or parameters, use the role api instead,  using the object specific role_id (AJXP_GRP_/groupPath or AJXP_USR_/userId).
 
 */
-func (a *Client) PatchPeople(params *PatchPeopleParams) (*PatchPeopleOK, error) {
+func (a *Client) PatchPeople(params *PatchPeopleParams, authInfo runtime.ClientAuthInfoWriter) (*PatchPeopleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewPatchPeopleParams()
@@ -518,9 +592,10 @@ func (a *Client) PatchPeople(params *PatchPeopleParams) (*PatchPeopleOK, error) 
 		PathPattern:        "/admin/people/{path}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &PatchPeopleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -535,7 +610,7 @@ func (a *Client) PatchPeople(params *PatchPeopleParams) (*PatchPeopleOK, error) 
 UpdateRole Update the role
 
 */
-func (a *Client) UpdateRole(params *UpdateRoleParams) (*UpdateRoleOK, error) {
+func (a *Client) UpdateRole(params *UpdateRoleParams, authInfo runtime.ClientAuthInfoWriter) (*UpdateRoleOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUpdateRoleParams()
@@ -547,9 +622,10 @@ func (a *Client) UpdateRole(params *UpdateRoleParams) (*UpdateRoleOK, error) {
 		PathPattern:        "/admin/roles/{roleId}",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{"application/json"},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UpdateRoleReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})

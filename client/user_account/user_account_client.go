@@ -28,7 +28,7 @@ type Client struct {
 UserInfo List accessible workspace for currently logged user. Alias for /state/?xPath=user/repositories
 
 */
-func (a *Client) UserInfo(params *UserInfoParams) (*UserInfoOK, error) {
+func (a *Client) UserInfo(params *UserInfoParams, authInfo runtime.ClientAuthInfoWriter) (*UserInfoOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUserInfoParams()
@@ -40,9 +40,10 @@ func (a *Client) UserInfo(params *UserInfoParams) (*UserInfoOK, error) {
 		PathPattern:        "/user",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UserInfoReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -57,7 +58,7 @@ func (a *Client) UserInfo(params *UserInfoParams) (*UserInfoOK, error) {
 UserPreferences List accessible workspace for currently logged user. Alias for /state/?xPath=user/preferences
 
 */
-func (a *Client) UserPreferences(params *UserPreferencesParams) (*UserPreferencesOK, error) {
+func (a *Client) UserPreferences(params *UserPreferencesParams, authInfo runtime.ClientAuthInfoWriter) (*UserPreferencesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUserPreferencesParams()
@@ -69,9 +70,10 @@ func (a *Client) UserPreferences(params *UserPreferencesParams) (*UserPreference
 		PathPattern:        "/user/preferences",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UserPreferencesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
@@ -86,7 +88,7 @@ func (a *Client) UserPreferences(params *UserPreferencesParams) (*UserPreference
 UserWorkspaces List accessible workspace for currently logged user. Alias for /state/?xPath=user/repositories
 
 */
-func (a *Client) UserWorkspaces(params *UserWorkspacesParams) (*UserWorkspacesOK, error) {
+func (a *Client) UserWorkspaces(params *UserWorkspacesParams, authInfo runtime.ClientAuthInfoWriter) (*UserWorkspacesOK, error) {
 	// TODO: Validate the params before sending
 	if params == nil {
 		params = NewUserWorkspacesParams()
@@ -98,9 +100,10 @@ func (a *Client) UserWorkspaces(params *UserWorkspacesParams) (*UserWorkspacesOK
 		PathPattern:        "/user/workspaces",
 		ProducesMediaTypes: []string{"application/json"},
 		ConsumesMediaTypes: []string{""},
-		Schemes:            []string{"http"},
+		Schemes:            []string{"http", "https"},
 		Params:             params,
 		Reader:             &UserWorkspacesReader{formats: a.formats},
+		AuthInfo:           authInfo,
 		Context:            params.Context,
 		Client:             params.HTTPClient,
 	})
