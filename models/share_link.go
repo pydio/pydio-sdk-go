@@ -19,7 +19,7 @@ type ShareLink struct {
 	DisableDownload bool `json:"disable_download,omitempty"`
 
 	// expire after
-	ExpireAfter bool `json:"expire_after,omitempty"`
+	ExpireAfter int64 `json:"expire_after,omitempty"`
 
 	// hash
 	Hash string `json:"hash,omitempty"`
@@ -34,7 +34,7 @@ type ShareLink struct {
 	IsExpired bool `json:"is_expired,omitempty"`
 
 	// public
-	Public bool `json:"public,omitempty"`
+	Public interface{} `json:"public,omitempty"`
 
 	// public link
 	PublicLink string `json:"public_link,omitempty"`

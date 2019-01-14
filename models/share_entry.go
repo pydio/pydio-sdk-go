@@ -15,8 +15,8 @@ import (
 // swagger:model ShareEntry
 type ShareEntry struct {
 
-	// avantar
-	Avantar string `json:"avantar,omitempty"`
+	// avatar
+	Avatar string `json:"avatar,omitempty"`
 
 	// hidden
 	Hidden bool `json:"hidden,omitempty"`

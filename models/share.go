@@ -8,6 +8,7 @@ package models
 import (
 	strfmt "github.com/go-openapi/strfmt"
 
+	"github.com/go-openapi/errors"
 	"github.com/go-openapi/swag"
 )
 
@@ -15,57 +16,69 @@ import (
 // swagger:model Share
 type Share struct {
 
-	// ajxp mime
-	AjxpMime string `json:"ajxp_mime,omitempty"`
+	// a j x p a p p l i c a t i o n b a s e
+	AJXPAPPLICATIONBASE string `json:"AJXP_APPLICATION_BASE,omitempty"`
 
-	// ajxp shared
-	AjxpShared bool `json:"ajxp_shared,omitempty"`
+	// a j x p t e m p l a t e n a m e
+	AJXPTEMPLATENAME string `json:"AJXP_TEMPLATE_NAME,omitempty"`
 
-	// ajxp shared minisite
-	AjxpSharedMinisite string `json:"ajxp_shared_minisite,omitempty"`
+	// d o w n l o a d d i s a b l e d
+	DOWNLOADDISABLED bool `json:"DOWNLOAD_DISABLED,omitempty"`
 
-	// fonticon
-	Fonticon string `json:"fonticon,omitempty"`
+	// g r o u p s c o u n t
+	GROUPSCOUNT int64 `json:"GROUPS_COUNT,omitempty"`
 
-	// icon
-	Icon string `json:"icon,omitempty"`
+	// o w n e r ID
+	OWNERID string `json:"OWNER_ID,omitempty"`
 
-	// label
-	Label string `json:"label,omitempty"`
+	// p r e l o g u s e r
+	PRELOGUSER string `json:"PRELOG_USER,omitempty"`
 
-	// openicon
-	Openicon string `json:"openicon,omitempty"`
+	// p r e s e t l o g i n
+	PRESETLOGIN string `json:"PRESET_LOGIN,omitempty"`
 
-	// original path
-	OriginalPath string `json:"original_path,omitempty"`
+	// r e p o s i t o r y
+	REPOSITORY string `json:"REPOSITORY,omitempty"`
 
-	// owner
-	Owner string `json:"owner,omitempty"`
+	// s h a r e t y p e
+	SHARETYPE string `json:"SHARE_TYPE,omitempty"`
 
-	// path
-	Path string `json:"path,omitempty"`
+	// u s e r s c o u n t
+	USERSCOUNT int64 `json:"USERS_COUNT,omitempty"`
 
-	// share data
-	ShareData string `json:"share_data,omitempty"`
-
-	// share element parent repository label
-	ShareElementParentRepositoryLabel string `json:"share_element_parent_repository_label,omitempty"`
-
-	// share type
-	ShareType string `json:"share_type,omitempty"`
-
-	// share type readable
-	ShareTypeReadable string `json:"share_type_readable,omitempty"`
-
-	// shared element hash
-	SharedElementHash string `json:"shared_element_hash,omitempty"`
-
-	// shared element parent repository
-	SharedElementParentRepository string `json:"shared_element_parent_repository,omitempty"`
+	// metadata
+	Metadata *ShareMetadata `json:"metadata,omitempty"`
 }
 
 // Validate validates this share
 func (m *Share) Validate(formats strfmt.Registry) error {
+	var res []error
+
+	if err := m.validateMetadata(formats); err != nil {
+		res = append(res, err)
+	}
+
+	if len(res) > 0 {
+		return errors.CompositeValidationError(res...)
+	}
+	return nil
+}
+
+func (m *Share) validateMetadata(formats strfmt.Registry) error {
+
+	if swag.IsZero(m.Metadata) { // not required
+		return nil
+	}
+
+	if m.Metadata != nil {
+		if err := m.Metadata.Validate(formats); err != nil {
+			if ve, ok := err.(*errors.Validation); ok {
+				return ve.ValidateName("metadata")
+			}
+			return err
+		}
+	}
+
 	return nil
 }
 

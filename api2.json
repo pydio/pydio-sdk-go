@@ -7,12 +7,14 @@
   },
   "host": "localhost",
   "basePath": "/api/v2",
-  "schemes": [
-    "http"
-  ],
-  "consumes": [
-    "application/x-www-form-urlencoded",
-    "multipart/form-data"
+  "schemes" : [ "http", "https" ],
+  "securityDefinitions":{
+    "basicAuth":{"type":"basic"}
+  },
+  "security":[
+    {
+      "basicAuth":[]
+    }
   ],
   "paths": {
     "/fs/{path}": {
@@ -1103,11 +1105,14 @@
         ],
         "description": "List Workspaces\n",
         "operationId": "adminListWorkspaces",
-        "produces": [
-          "application/json",
-          "application/xml"
-        ],
-        "parameters": [],
+        "produces" : [ "application/json", "application/xml" ],
+        "parameters" : [ {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Format produced in output (defaults to xml)",
+          "required" : false,
+          "type" : "string"
+        }],
         "responses": {
           "200": {
             "description": "A list of workspaces represented as standard nodes",
@@ -1206,8 +1211,13 @@
             "description": "Load additional data to build a form for editing this role",
             "required": false,
             "type": "boolean"
-          }
-        ],
+        }, {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Format produced in output (defaults to xml)",
+          "required" : false,
+          "type" : "string"
+        } ],
         "responses": {
           "200": {
             "description": "Workspace object",
@@ -1304,8 +1314,13 @@
             "description": "id or alias of this workspace",
             "required": true,
             "type": "string"
-          },
-          {
+        }, {
+          "name" : "format",
+          "in" : "query",
+          "description" : "Format produced in output (defaults to xml)",
+          "required" : false,
+          "type" : "string"
+        }, {
             "name": "metaId",
             "in": "path",
             "description": "plugin id for new meta",
@@ -1813,6 +1828,13 @@
         },
         "children": {
           "$ref": "#/definitions/NodeList"
+        },
+        "ajxp_roles" : {
+          "type": "object",
+          "properties" : { }
+        },
+        "json_merged_role" : {
+          "$ref" : "#/definitions/Role"
         }
       },
       "title": "Node",
@@ -1833,7 +1855,8 @@
         "children": null,
         "ajxp_modiftime": 5,
         "repo_has_recycle": true,
-        "file_perms": "file_perms"
+        "file_perms" : "file_perms",
+        "ajxp_roles": "[]"
       }
     },
     "NodesDiff": {
@@ -1899,7 +1922,8 @@
             "children": null,
             "ajxp_modiftime": 5,
             "repo_has_recycle": true,
-            "file_perms": "file_perms"
+            "file_perms" : "file_perms",
+            "ajxp_roles": "[]"
           },
           "children": {
             "key": {
@@ -1918,7 +1942,8 @@
               "children": null,
               "ajxp_modiftime": 5,
               "repo_has_recycle": true,
-              "file_perms": "file_perms"
+              "file_perms" : "file_perms",
+              "ajxp_roles": "[]"
             }
           }
         }
@@ -2262,7 +2287,7 @@
       },
       "description": "additional informations provided by the server"
     },
-    "Share": {
+    "ShareMetadata": {
       "type": "object",
       "properties": {
         "ajxp_shared": {
@@ -2306,7 +2331,10 @@
           "description": ""
         },
         "shared_element_parent_repository": {
-          "type": "string",
+          "oneOf":[
+            {"type": "string"},
+            {"type": "integer"}
+          ],
           "description": ""
         },
         "share_element_parent_repository_label": {
@@ -2331,13 +2359,62 @@
         }
       }
     },
+    "Share": {
+      "type": "object",
+      "properties": {
+        "OWNER_ID": {
+          "type": "string",
+          "description": ""
+        },
+        "DOWNLOAD_DISABLED": {
+          "type": "boolean",
+          "description": ""
+        },
+        "AJXP_APPLICATION_BASE": {
+          "type": "string",
+          "description": ""
+        },
+        "AJXP_TEMPLATE_NAME": {
+          "type": "string",
+          "description": ""
+        },
+        "PRELOG_USER": {
+          "type": "string",
+          "description": ""
+        },
+        "PRESET_LOGIN": {
+          "type": "string",
+          "description": ""
+        },
+        "REPOSITORY": {
+          "type": "string",
+          "description": ""
+        },
+        "SHARE_TYPE": {
+          "type": "string",
+          "description": ""
+        },
+        "USERS_COUNT": {
+          "type": "integer",
+          "description": ""
+        },
+        "GROUPS_COUNT": {
+          "type": "integer",
+          "description": ""
+        },
+        "metadata": {
+          "type": "object",
+          "$ref": "#/definitions/ShareMetadata"
+        }
+      }
+    },
     "ShareElement": {
       "type": "object",
       "properties": {
         "content_filter": {
-          "type": "array",
-          "items": {
-            "type": "string"
+          "type": "object",
+          "additionalProperties": {
+            "type": "object"
           }
         },
         "description": {
@@ -2368,8 +2445,8 @@
           }
         },
         "links": {
-          "type": "array",
-          "items": {
+          "type": "object",
+          "additionalProperties": {
             "$ref": "#/definitions/ShareLink"
           }
         }
@@ -2378,7 +2455,7 @@
     "ShareEntry": {
       "type": "object",
       "properties": {
-        "avantar": {
+        "avatar": {
           "type": "string",
           "description": ""
         },
@@ -2407,7 +2484,7 @@
           "type": "boolean"
         },
         "expire_after": {
-          "type": "boolean"
+          "type": "integer"
         },
         "hash": {
           "type": "string"
@@ -2422,7 +2499,10 @@
           "type": "boolean"
         },
         "public": {
-          "type": "boolean"
+          "oneOf":[
+            {"type": "boolean"},
+            {"type": "string"}
+          ]
         },
         "public_link": {
           "type": "string"
