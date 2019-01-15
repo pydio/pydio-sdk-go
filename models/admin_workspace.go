@@ -28,7 +28,7 @@ type AdminWorkspace struct {
 	Display *string `json:"display"`
 
 	// an i18n identifier to adapt the label to the user language
-	DisplayStringID string `json:"displayStringId,omitempty"`
+	DisplayStringID interface{} `json:"displayStringId,omitempty"`
 
 	// The additional features parameters.
 	Features interface{} `json:"features,omitempty"`
@@ -37,7 +37,7 @@ type AdminWorkspace struct {
 	GroupPath string `json:"groupPath,omitempty"`
 
 	// Id of this workspace
-	ID string `json:"id,omitempty"`
+	ID interface{} `json:"id,omitempty"`
 
 	// info
 	Info *AdminWorkspaceInfo `json:"info,omitempty"`

@@ -2,17 +2,18 @@ package cmd
 
 import (
 	"fmt"
-	p "path"
-	"net/http"
 	"log"
-	"io/ioutil"
-	"encoding/json"
 
 	"github.com/spf13/cobra"
 
+	"strings"
+
 	"github.com/pydio/pydio-sdk-go/config"
-	"github.com/pydio/pydio-sdk-go/models"
-	"net/url"
+	"github.com/pydio/pydio-sdk-go/shares"
+)
+
+var (
+	sharesListDetails bool
 )
 
 var SharesCmd = &cobra.Command{
@@ -23,59 +24,62 @@ var SharesCmd = &cobra.Command{
 	},
 }
 
-type listRep struct {
-	Shares map[string]*models.Share `json:"data"`
-	Cursor map[string]int `json:"cursor"`
-}
-
 var ListSharesCmd = &cobra.Command{
 	Use:   "ls",
 	Short: "List shares",
 	Run: func(cmd *cobra.Command, args []string) {
 
-		c := config.DefaultConfig
-		httpClient := config.GetHttpClient(c)
-		listUri := p.Join(c.Url, c.Path, "api/settings/sharelist-load")
-		req, _ := http.NewRequest("POST", fmt.Sprintf("%s://%s/?format=json", c.Protocol, listUri), nil)
-		req.SetBasicAuth(c.User, c.Password)
-		resp, e := httpClient.Do(req)
-		if e != nil {
-			log.Fatal(e)
-		}
-		body, e := ioutil.ReadAll(resp.Body)
-		if e != nil {
-			log.Fatal("Cannot read body", e)
-		}
-		var result listRep
-		if e := json.Unmarshal(body, &result); e!= nil {
-			fmt.Printf("%#v\n", e)
-			log.Fatal("Unmarshal Error", e)
-		}
+		// TODO : MAKE SURE TO USE NEW CLEAN ADMIN USER
+		// Admin user may be the owner of some shared workspaces
+		// wich will create issue
+		shares.SetConfig(config.DefaultConfig)
 
-		log.Println(fmt.Sprintf("Got %d shares, total %v", len(result.Shares), result.Cursor["total"]))
-		for _, s := range result.Shares {
-			log.Println(s.SHARETYPE + " - " + s.OWNERID + " - " + s.Metadata.SharedElementHash )
-			detailUri := p.Join(c.Url, c.Path, "api", fmt.Sprintf("%v", s.Metadata.SharedElementParentRepository), "load_shared_element_data/", s.Metadata.OriginalPath)
-			req1, _ := http.NewRequest("POST", fmt.Sprintf("%s://%s", c.Protocol, detailUri), nil)
-			req1.SetBasicAuth(c.User, c.Password)
-			req1.PostForm = url.Values{}
-			req1.PostForm.Set("owner", s.OWNERID)
-			req1.PostForm.Set("merged", "true")
-			resp1, e := httpClient.Do(req1)
-			if e != nil {
-				log.Fatal("Detail request error ", detailUri, " ", e)
+		allShares, ignored, err := shares.LoadShares()
+		if err != nil {
+			log.Fatal(err)
+		}
+		log.Println(fmt.Sprintf("Found %d shares", len(allShares)))
+		if len(ignored) > 0 {
+			for _, i := range ignored {
+				log.Println("Ignored: " + i.Error())
 			}
-			body, _ := ioutil.ReadAll(resp1.Body)
-			var element models.ShareElement
-			if e := json.Unmarshal(body, &element); e != nil {
-				log.Fatal("Parse detail request error ", detailUri, " ", e)
+		}
+		if !sharesListDetails {
+			return
+		}
+		for _, s := range allShares {
+			fmt.Println("")
+			if e := s.LoadElement(); e != nil {
+				fmt.Println("[ERROR] Cannot load ShareElement: ", e)
+				continue
 			}
-			fmt.Println(element.Description)
+
+			links := s.GetElement().GetLinks()
+			if len(links) > 0 {
+				fmt.Println("Share has links: ")
+				for _, link := range links {
+					fmt.Println("-- " + link.PublicLink)
+				}
+			}
+
+			sharedUsers := s.GetSharedUsers()
+			if len(sharedUsers) > 0 {
+				fmt.Printf("Share has %d shared users: %s\n", len(sharedUsers), strings.Join(s.GetSharedUsersIds(), ","))
+			}
+
+			// Rebuild Path
+			if fullPath, ws, ownerId, e := shares.RecurseParentPaths(allShares, s); e == nil {
+				fmt.Printf("Full Node Path is %s:/%s [top owner:%s]\n", ws.Slug, fullPath, ownerId)
+			} else {
+				fmt.Println("[ERROR] Cannot rebuild full path: ", e)
+			}
 		}
 	},
 }
 
 func init() {
+	flags := SharesCmd.PersistentFlags()
+	flags.BoolVarP(&sharesListDetails, "details", "d", false, "Load shares workspaces")
 	SharesCmd.AddCommand(ListSharesCmd)
 	RootCmd.AddCommand(SharesCmd)
 }

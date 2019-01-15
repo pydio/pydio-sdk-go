@@ -58,7 +58,7 @@ type ShareMetadata struct {
 	ShareTypeReadable string `json:"share_type_readable,omitempty"`
 
 	// shared element hash
-	SharedElementHash string `json:"shared_element_hash,omitempty"`
+	SharedElementHash interface{} `json:"shared_element_hash,omitempty"`
 
 	// shared element parent repository
 	SharedElementParentRepository interface{} `json:"shared_element_parent_repository,omitempty"`

@@ -2071,7 +2071,10 @@
       ],
       "properties": {
         "id": {
-          "type": "string",
+          "oneOf":[
+            {"type": "string"},
+            {"type": "integer"}
+          ],
           "description": "Id of this workspace"
         },
         "slug": {
@@ -2083,7 +2086,10 @@
           "description": "Label for this workspace"
         },
         "displayStringId": {
-          "type": "string",
+          "oneOf":[
+            {"type": "string"},
+            {"type": "integer"}
+          ],
           "description": "an i18n identifier to adapt the label to the user language"
         },
         "accessType": {
@@ -2327,7 +2333,10 @@
           "description": ""
         },
         "shared_element_hash": {
-          "type": "string",
+          "oneOf":[
+            {"type": "string"},
+            {"type": "integer"}
+          ],
           "description": ""
         },
         "shared_element_parent_repository": {
@@ -2445,10 +2454,17 @@
           }
         },
         "links": {
-          "type": "object",
-          "additionalProperties": {
-            "$ref": "#/definitions/ShareLink"
-          }
+          "oneOf":[
+            {
+              "type": "object",
+              "additionalProperties": {
+                "$ref": "#/definitions/ShareLink"
+              }
+            },
+            {
+              "type": "array"
+            }
+          ]
         }
       }
     },
@@ -2487,7 +2503,10 @@
           "type": "integer"
         },
         "hash": {
-          "type": "string"
+          "oneOf":[
+            {"type": "string"},
+            {"type": "integer"}
+          ]
         },
         "hash_is_shorten": {
           "type": "boolean"

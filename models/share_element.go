@@ -31,7 +31,7 @@ type ShareElement struct {
 	Entries []*ShareEntry `json:"entries"`
 
 	// links
-	Links ShareElementLinks `json:"links,omitempty"`
+	Links interface{} `json:"links,omitempty"`
 
 	// repository url
 	RepositoryURL string `json:"repository_url,omitempty"`
@@ -54,10 +54,6 @@ func (m *ShareElement) Validate(formats strfmt.Registry) error {
 	var res []error
 
 	if err := m.validateEntries(formats); err != nil {
-		res = append(res, err)
-	}
-
-	if err := m.validateLinks(formats); err != nil {
 		res = append(res, err)
 	}
 
@@ -87,22 +83,6 @@ func (m *ShareElement) validateEntries(formats strfmt.Registry) error {
 			}
 		}
 
-	}
-
-	return nil
-}
-
-func (m *ShareElement) validateLinks(formats strfmt.Registry) error {
-
-	if swag.IsZero(m.Links) { // not required
-		return nil
-	}
-
-	if err := m.Links.Validate(formats); err != nil {
-		if ve, ok := err.(*errors.Validation); ok {
-			return ve.ValidateName("links")
-		}
-		return err
 	}
 
 	return nil

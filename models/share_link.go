@@ -22,7 +22,7 @@ type ShareLink struct {
 	ExpireAfter int64 `json:"expire_after,omitempty"`
 
 	// hash
-	Hash string `json:"hash,omitempty"`
+	Hash interface{} `json:"hash,omitempty"`
 
 	// hash is shorten
 	HashIsShorten bool `json:"hash_is_shorten,omitempty"`
