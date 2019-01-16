@@ -2383,6 +2383,10 @@
           "type": "integer",
           "description": ""
         },
+        "EXPIRE_TIME": {
+          "type": "integer",
+          "description": ""
+        },
         "AJXP_APPLICATION_BASE": {
           "type": "string",
           "description": ""

@@ -28,6 +28,9 @@ type Share struct {
 	// d o w n l o a d l i m i t
 	DOWNLOADLIMIT int64 `json:"DOWNLOAD_LIMIT,omitempty"`
 
+	// e x p i r e t i m e
+	EXPIRETIME int64 `json:"EXPIRE_TIME,omitempty"`
+
 	// g r o u p s c o u n t
 	GROUPSCOUNT int64 `json:"GROUPS_COUNT,omitempty"`
 
