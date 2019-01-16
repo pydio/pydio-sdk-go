@@ -2379,6 +2379,10 @@
           "type": "boolean",
           "description": ""
         },
+        "DOWNLOAD_LIMIT": {
+          "type": "integer",
+          "description": ""
+        },
         "AJXP_APPLICATION_BASE": {
           "type": "string",
           "description": ""

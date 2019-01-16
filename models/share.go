@@ -25,6 +25,9 @@ type Share struct {
 	// d o w n l o a d d i s a b l e d
 	DOWNLOADDISABLED bool `json:"DOWNLOAD_DISABLED,omitempty"`
 
+	// d o w n l o a d l i m i t
+	DOWNLOADLIMIT int64 `json:"DOWNLOAD_LIMIT,omitempty"`
+
 	// g r o u p s c o u n t
 	GROUPSCOUNT int64 `json:"GROUPS_COUNT,omitempty"`
 
